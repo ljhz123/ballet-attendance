@@ -18,6 +18,10 @@ export default function Me() {
   const today = format(new Date(), 'yyyy-MM-dd');
 
   useEffect(() => {
+    if (member?.role === 'admin') navigate('/admin', { replace: true });
+  }, [member, navigate]);
+
+  useEffect(() => {
     if (!member) return;
     async function load() {
       if (!member) return;

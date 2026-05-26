@@ -8,6 +8,7 @@ import AdminLayout from './pages/admin/AdminLayout';
 import AttendanceCheck from './pages/admin/AttendanceCheck';
 import Pending from './pages/admin/Pending';
 import Members from './pages/admin/Members';
+import MemberDetail from './pages/admin/MemberDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route index element={<AttendanceCheck />} />
           <Route path="pending" element={<Pending />} />
           <Route path="members" element={<Members />} />
+          <Route path="members/:id" element={<MemberDetail />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
