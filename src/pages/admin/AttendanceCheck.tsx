@@ -15,6 +15,11 @@ export default function AttendanceCheck() {
   const [recent, setRecent] = useState<RecentAttendance[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const today = format(new Date(), 'yyyy-MM-dd');
+  const todayDisplay = (() => {
+    const d = new Date();
+    const weekdays = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+    return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${weekdays[d.getDay()]})`;
+  })();
 
   async function reload() {
     const [m, v, a] = await Promise.all([
@@ -64,6 +69,10 @@ export default function AttendanceCheck() {
 
   return (
     <div>
+      <div className="bg-pink-50 border border-pink-200 rounded-xl px-4 py-3 mb-3 text-center">
+        <div className="text-xs text-pink-600 font-semibold">오늘</div>
+        <div className="text-lg font-bold text-pink-700">{todayDisplay}</div>
+      </div>
       <MemberSearchBox value={search} onChange={setSearch} />
       <ul className="space-y-2 mb-6">
         {filtered.map(r => {
