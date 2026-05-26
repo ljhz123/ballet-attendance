@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
 
-const CHECKIN_URL = `${window.location.origin}/checkin`;
+const QR_PAYLOAD = 'BALLET-STUDIO-CHECKIN';
 
 export default function AdminQR() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
-      QRCode.toCanvas(canvasRef.current, CHECKIN_URL, {
+      QRCode.toCanvas(canvasRef.current, QR_PAYLOAD, {
         width: 400,
         margin: 2,
         color: { dark: '#831843', light: '#ffffff' },
@@ -25,11 +25,10 @@ export default function AdminQR() {
 
       <div className="bg-white border-4 border-pink-200 rounded-2xl p-6 print:border-pink-700 print:border-2">
         <h2 className="text-2xl font-bold text-pink-700 mb-2">🩰 발레학원 출석</h2>
-        <p className="text-sm text-gray-700 mb-4">폰 카메라로 QR을 찍어주세요</p>
+        <p className="text-sm text-gray-700 mb-4">앱에서 "📷 QR 출석체크" 버튼으로 스캔해주세요</p>
         <canvas ref={canvasRef} className="mx-auto" />
-        <p className="text-xs text-gray-500 mt-4">{CHECKIN_URL}</p>
         <p className="text-xs text-gray-600 mt-2">
-          QR이 안 열리면 위 주소를 직접 입력해주세요
+          앱에 로그인 후 "📷 QR 출석체크" 버튼으로 스캔해주세요
         </p>
       </div>
 

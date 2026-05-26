@@ -81,6 +81,13 @@ export default function Me() {
 
       <InstallPrompt />
 
+      <Link
+        to="/scan"
+        className="block bg-pink-500 hover:bg-pink-600 text-white text-center py-4 rounded-2xl font-bold text-lg mb-4 shadow"
+      >
+        📷 QR 출석체크
+      </Link>
+
       {alerts.length > 0 && (
         <div className="space-y-2 mb-6">
           {alerts.map((a, i) => <AlertCard key={i} alert={a} />)}
