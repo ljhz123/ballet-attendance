@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PendingApproval from './pages/PendingApproval';
 import Me from './pages/Me';
+import Settings from './pages/Settings';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/pending" element={<PendingApproval />} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
