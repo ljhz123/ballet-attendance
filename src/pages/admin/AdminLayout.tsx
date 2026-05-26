@@ -18,6 +18,7 @@ export default function AdminLayout() {
           { to: '/admin', label: '출석체크' },
           { to: '/admin/pending', label: '가입승인' },
           { to: '/admin/members', label: '회원관리' },
+          { to: '/admin/qr', label: 'QR' },
         ].map(item => (
           <NavLink key={item.to} to={item.to} end={item.to === '/admin'}
             className={({isActive}) => `flex-1 text-center py-3 text-sm ${isActive ? 'text-pink-600 border-b-2 border-pink-600 font-semibold' : 'text-gray-600'}`}>

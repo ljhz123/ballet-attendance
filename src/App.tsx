@@ -11,6 +11,8 @@ import Members from './pages/admin/Members';
 import MemberDetail from './pages/admin/MemberDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Checkin from './pages/Checkin';
+import AdminQR from './pages/admin/AdminQR';
 
 export default function App() {
   return (
@@ -22,11 +24,13 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/checkin" element={<ProtectedRoute><Checkin /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminLayout /></ProtectedRoute>}>
           <Route index element={<AttendanceCheck />} />
           <Route path="pending" element={<Pending />} />
           <Route path="members" element={<Members />} />
           <Route path="members/:id" element={<MemberDetail />} />
+          <Route path="qr" element={<AdminQR />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
