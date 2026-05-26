@@ -10,6 +10,7 @@ import Pending from './pages/admin/Pending';
 import Members from './pages/admin/Members';
 import MemberDetail from './pages/admin/MemberDetail';
 import ProtectedRoute from './components/ProtectedRoute';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/pending" element={<PendingApproval />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminLayout /></ProtectedRoute>}>

@@ -61,6 +61,9 @@ export default function Signup() {
         >
           {loading ? '신청 중...' : '가입 신청'}
         </button>
+        <p className="text-xs text-gray-500 text-center mt-2">
+          가입 시 <Link to="/privacy" className="underline">개인정보처리방침</Link>에 동의한 것으로 간주합니다.
+        </p>
         <p className="text-center text-sm mt-4">
           이미 가입했어요 <Link to="/login" className="text-pink-600 underline">로그인</Link>
         </p>
