@@ -57,14 +57,26 @@ export async function signOut() {
   }
 }
 
+// 약한 네트워크에서도 무한대기 안 하도록 timeout 헬퍼
+// 시간 초과 시 null 반환 (호출자가 분기 처리)
+function withTimeout<T>(promise: PromiseLike<T>, ms: number): Promise<T | null> {
+  return new Promise<T | null>(resolve => {
+    let done = false;
+    const timer = setTimeout(() => { if (!done) { done = true; resolve(null); } }, ms);
+    promise.then(v => { if (!done) { done = true; clearTimeout(timer); resolve(v); } },
+                 () => { if (!done) { done = true; clearTimeout(timer); resolve(null); } });
+  });
+}
+
 export async function getCurrentMember(): Promise<Member | null> {
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) return null;
-  const { data, error } = await supabase
-    .from('members')
-    .select('*')
-    .eq('auth_user_id', session.session.user.id)
-    .single();
-  if (error) return null;
-  return data as Member;
+  const sessionResult = await withTimeout(supabase.auth.getSession(), 3000);
+  const session = sessionResult?.data.session;
+  if (!session) return null;
+
+  const memberResult = await withTimeout(
+    supabase.from('members').select('*').eq('auth_user_id', session.user.id).single(),
+    5000
+  );
+  if (!memberResult || memberResult.error || !memberResult.data) return null;
+  return memberResult.data as Member;
 }
