@@ -7,6 +7,7 @@ import Settings from './pages/Settings';
 import AdminLayout from './pages/admin/AdminLayout';
 import AttendanceCheck from './pages/admin/AttendanceCheck';
 import Pending from './pages/admin/Pending';
+import Members from './pages/admin/Members';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminLayout /></ProtectedRoute>}>
           <Route index element={<AttendanceCheck />} />
           <Route path="pending" element={<Pending />} />
+          <Route path="members" element={<Members />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
