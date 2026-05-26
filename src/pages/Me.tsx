@@ -24,17 +24,36 @@ export default function Me() {
 
   useEffect(() => {
     if (!member) return;
+    let cancelled = false;
     async function load() {
       if (!member) return;
       const [v, a] = await Promise.all([
         supabase.from('vouchers').select('*').eq('member_id', member.id).order('expiry_date'),
         supabase.from('attendance').select('*').eq('member_id', member.id).is('reverted_at', null).order('checked_at', { ascending: false }).limit(10),
       ]);
+      if (cancelled) return;
       setVouchers((v.data ?? []) as Voucher[]);
       setAttendance((a.data ?? []) as AttendanceRow[]);
       setLoading(false);
     }
     load();
+
+    // Realtime: 내 회원권/출석 변경 시 자동 새로고침
+    const channel = supabase.channel(`me-${member.id}`)
+      .on('postgres_changes',
+        { event: '*', schema: 'public', table: 'vouchers', filter: `member_id=eq.${member.id}` },
+        () => load()
+      )
+      .on('postgres_changes',
+        { event: '*', schema: 'public', table: 'attendance', filter: `member_id=eq.${member.id}` },
+        () => load()
+      )
+      .subscribe();
+
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(channel);
+    };
   }, [member]);
 
   if (!member || loading) return <div className="p-4">로딩 중...</div>;
