@@ -49,7 +49,12 @@ export async function signInWithPhone(phone: string, password: string) {
 }
 
 export async function signOut() {
-  await supabase.auth.signOut();
+  // scope: 'local'은 서버 호출 없이 바로 로컬 세션만 삭제 — 네트워크 끊겨도 즉시 동작
+  try {
+    await supabase.auth.signOut({ scope: 'local' });
+  } catch {
+    // 무시: 어차피 아래에서 강제로 페이지 이동
+  }
 }
 
 export async function getCurrentMember(): Promise<Member | null> {

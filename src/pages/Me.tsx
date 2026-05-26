@@ -56,7 +56,7 @@ export default function Me() {
         </div>
         <div className="flex gap-3 text-xs text-gray-500">
           <Link to="/settings" className="underline">설정</Link>
-          <button onClick={async () => { await signOut(); navigate('/login'); }} className="underline">로그아웃</button>
+          <button onClick={async () => { await signOut(); window.location.href = '/login'; }} className="underline">로그아웃</button>
         </div>
       </div>
 
