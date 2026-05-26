@@ -4,6 +4,8 @@ import Signup from './pages/Signup';
 import PendingApproval from './pages/PendingApproval';
 import Me from './pages/Me';
 import Settings from './pages/Settings';
+import AdminLayout from './pages/admin/AdminLayout';
+import AttendanceCheck from './pages/admin/AttendanceCheck';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -15,6 +17,9 @@ export default function App() {
         <Route path="/pending" element={<PendingApproval />} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminLayout /></ProtectedRoute>}>
+          <Route index element={<AttendanceCheck />} />
+        </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
