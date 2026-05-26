@@ -7,6 +7,7 @@ import type { Voucher, AttendanceRow } from '../lib/types';
 import { computeAlerts } from '../lib/alerts';
 import VoucherCard from '../components/VoucherCard';
 import AlertCard from '../components/AlertCard';
+import InstallPrompt from '../components/InstallPrompt';
 import { format } from 'date-fns';
 
 export default function Me() {
@@ -58,6 +59,8 @@ export default function Me() {
           <button onClick={async () => { await signOut(); navigate('/login'); }} className="underline">로그아웃</button>
         </div>
       </div>
+
+      <InstallPrompt />
 
       {alerts.length > 0 && (
         <div className="space-y-2 mb-6">
